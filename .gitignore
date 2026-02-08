@@ -1,0 +1,8 @@
+.DS_Store
+Derived/
+.build/
+Tuist/.cache/
+Tuist/Dependencies/
+*.xcuserstate
+*.xcscmblueprint
+xcuserdata/
