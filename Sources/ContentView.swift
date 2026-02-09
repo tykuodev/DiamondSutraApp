@@ -11,12 +11,13 @@ private let readerBackground = LinearGradient(
 )
 
 final class ReaderSettings: ObservableObject {
+    static let minTextScale: CGFloat = 0.8
+    static let maxTextScale: CGFloat = 1.8
+
     @Published var textScale: CGFloat = 1.0
 
-    func applyMagnificationDelta(_ delta: CGFloat) {
-        guard delta.isFinite, delta > 0 else { return }
-        let updated = textScale * delta
-        textScale = min(max(updated, 0.8), 1.8)
+    func clampedTextScale(_ value: CGFloat) -> CGFloat {
+        min(max(value, Self.minTextScale), Self.maxTextScale)
     }
 }
 
@@ -304,17 +305,25 @@ private extension UIView {
 struct SutraPageContentView: View {
     let page: SutraPage
     @ObservedObject var settings: ReaderSettings
-    @State private var lastMagnification: CGFloat = 1.0
+    @GestureState private var magnification: CGFloat = 1.0
+
+    private let magnificationDamping: CGFloat = 0.65
+
+    private var effectiveTextScale: CGFloat {
+        // Use damping so pinch isn't too sensitive.
+        let damped = pow(magnification, magnificationDamping)
+        return settings.clampedTextScale(settings.textScale * damped)
+    }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
                 Text(page.chapterTitle)
-                    .font(.system(size: 22 * settings.textScale, weight: .semibold))
+                    .font(.system(size: 22 * effectiveTextScale, weight: .semibold))
                     .bold()
 
                 Text(page.body)
-                    .font(.system(size: 18 * settings.textScale))
+                    .font(.system(size: 18 * effectiveTextScale))
                     .lineSpacing(8)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -325,13 +334,12 @@ struct SutraPageContentView: View {
         .background(readerBackground)
         .gesture(
             MagnificationGesture()
-                .onChanged { value in
-                    let delta = value / lastMagnification
-                    lastMagnification = value
-                    settings.applyMagnificationDelta(delta)
+                .updating($magnification) { value, state, _ in
+                    state = value
                 }
-                .onEnded { _ in
-                    lastMagnification = 1.0
+                .onEnded { value in
+                    let damped = pow(value, magnificationDamping)
+                    settings.textScale = settings.clampedTextScale(settings.textScale * damped)
                 }
         )
     }
