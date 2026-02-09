@@ -21,6 +21,30 @@ let project = Project(
             dependencies: [
                 .package(product: "ZIPFoundation"),
             ]
+        ),
+        .target(
+            name: "DiamondSutraAppTests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "com.kuotinyen.DiamondSutraAppTests",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["Tests/**"],
+            dependencies: [
+                .target(name: "DiamondSutraApp"),
+            ]
+        ),
+        .target(
+            name: "DiamondSutraAppUITests",
+            destinations: .iOS,
+            product: .uiTests,
+            bundleId: "com.kuotinyen.DiamondSutraAppUITests",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["UITests/**"],
+            dependencies: [
+                .target(name: "DiamondSutraApp"),
+            ]
         )
     ]
 )

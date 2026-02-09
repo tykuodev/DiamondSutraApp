@@ -162,6 +162,7 @@ struct PageCurlReaderView: UIViewControllerRepresentable {
             transitionStyle: .pageCurl,
             navigationOrientation: .horizontal
         )
+        pageVC.view.accessibilityIdentifier = "reader.pageView"
         // The reader UI is designed for a light paper-like background.
         pageVC.overrideUserInterfaceStyle = .light
         pageVC.view.backgroundColor = UIColor(
@@ -328,20 +329,32 @@ struct SutraPageContentView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 14) {
-                Text(page.chapterTitle)
-                    .font(.system(size: 22 * effectiveTextScale, weight: .semibold))
-                    .bold()
+        ZStack(alignment: .topLeading) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    Text(page.chapterTitle)
+                        .accessibilityIdentifier("reader.chapterTitle")
+                        .font(.system(size: 22 * effectiveTextScale, weight: .semibold))
+                        .bold()
 
-                Text(page.body)
-                    .font(.system(size: 18 * effectiveTextScale))
-                    .lineSpacing(8)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(page.body)
+                        .accessibilityIdentifier("reader.bodyText")
+                        .font(.system(size: 18 * effectiveTextScale))
+                        .lineSpacing(8)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                // Force black text for the paper-like background even in Dark Mode.
+                .foregroundStyle(.black)
+                .padding(24)
             }
-            // Force black text for the paper-like background even in Dark Mode.
-            .foregroundStyle(.black)
-            .padding(24)
+            .accessibilityIdentifier("reader.pageScroll")
+
+            // Expose scale for UI tests; keep it effectively invisible.
+            Text(String(format: "scale=%.3f", settings.textScale))
+                .accessibilityIdentifier("reader.scale")
+                .font(.caption2)
+                .opacity(0.01)
+                .padding(2)
         }
         .background(readerBackground)
         // Pinch should be easy to trigger even inside ScrollView.

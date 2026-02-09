@@ -3,19 +3,58 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0EB96D009257CC7DB73B131D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0119C270E17FD7489D0BEC /* ContentView.swift */; };
 		2E0A754EF7A3526DD75C0A1F /* TuistBundle+DiamondSutraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4129233E604697978C3D312 /* TuistBundle+DiamondSutraApp.swift */; };
+		3D5333ACBAC7A9B5DBF77478 /* ReaderSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C22C3354091C5B75900462 /* ReaderSettingsTests.swift */; };
 		7310920667DECCBB4FB5DB5C /* DiamondSutraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3874907E69B821C96F7F2F /* DiamondSutraApp.swift */; };
 		73334A188C2C93D2D2EC5782 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 0801689BEB0084CFC7343A0C /* ZIPFoundation */; };
+		780E9A01B7CAE60DCF09B022 /* ReaderPinchAndScrollUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A412D17E36B4A0CBA7C42681 /* ReaderPinchAndScrollUITests.swift */; };
 		9C505B98A510F9FE1725CDF3 /* 金剛經.epub in Resources */ = {isa = PBXBuildFile; fileRef = 134AEFA56E8556A2872E6F35 /* 金剛經.epub */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		01169BB0932BE70DA9BDDED5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3948D30B76F810CD9A7959AE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9CEE3A2FACC6B946DEC8AAE;
+			remoteInfo = DiamondSutraApp;
+		};
+		69B04DE1B1B6623920101DEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3948D30B76F810CD9A7959AE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9CEE3A2FACC6B946DEC8AAE;
+			remoteInfo = DiamondSutraApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		9F0C5E5045B294B5408ABA43 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CCCF46CE9A92C534B3F0A48A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F22964F0AD71B61480E1790A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -29,10 +68,16 @@
 
 /* Begin PBXFileReference section */
 		062B912D21FD71AA1DD3B4C2 /* DiamondSutraApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DiamondSutraApp-Info.plist"; sourceTree = "<group>"; };
-		134AEFA56E8556A2872E6F35 /* 金剛經.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "金剛經.epub"; sourceTree = "<group>"; };
+		134AEFA56E8556A2872E6F35 /* 金剛經.epub */ = {isa = PBXFileReference; path = "金剛經.epub"; sourceTree = "<group>"; };
+		5A4EC09F5C1C2B16298B1426 /* DiamondSutraAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiamondSutraAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3874907E69B821C96F7F2F /* DiamondSutraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondSutraApp.swift; sourceTree = "<group>"; };
+		A412D17E36B4A0CBA7C42681 /* ReaderPinchAndScrollUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderPinchAndScrollUITests.swift; sourceTree = "<group>"; };
+		AB1CD4BDA251499CEE6343C5 /* DiamondSutraAppUITests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DiamondSutraAppUITests-Info.plist"; sourceTree = "<group>"; };
 		AE0119C270E17FD7489D0BEC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CEC71D7037158B2940BDDADC /* DiamondSutraAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DiamondSutraAppTests-Info.plist"; sourceTree = "<group>"; };
 		DCD0683CAD419ED11681BDB6 /* DiamondSutraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiamondSutraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6C22C3354091C5B75900462 /* ReaderSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderSettingsTests.swift; sourceTree = "<group>"; };
+		EBC736ECA6472983FCAD6500 /* DiamondSutraAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiamondSutraAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4129233E604697978C3D312 /* TuistBundle+DiamondSutraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+DiamondSutraApp.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -45,6 +90,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		35BB863E5282FE57E08216A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		456698D6C6607C6FF8EA887E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -54,6 +113,8 @@
 				41EF17A8FB632A70834925DF /* Derived */,
 				2C11DE0C818E2CF152B6BCD5 /* Resources */,
 				FBA8319C85D6BD2D266967ED /* Sources */,
+				EA3511FB58FC93F0298D5E90 /* Tests */,
+				A74721918B7615163372E24E /* UITests */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -87,14 +148,26 @@
 			isa = PBXGroup;
 			children = (
 				DCD0683CAD419ED11681BDB6 /* DiamondSutraApp.app */,
+				EBC736ECA6472983FCAD6500 /* DiamondSutraAppTests.xctest */,
+				5A4EC09F5C1C2B16298B1426 /* DiamondSutraAppUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A74721918B7615163372E24E /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+				A412D17E36B4A0CBA7C42681 /* ReaderPinchAndScrollUITests.swift */,
+			);
+			path = UITests;
 			sourceTree = "<group>";
 		};
 		A9BF74528EC0EDDC281EAD26 /* InfoPlists */ = {
 			isa = PBXGroup;
 			children = (
 				062B912D21FD71AA1DD3B4C2 /* DiamondSutraApp-Info.plist */,
+				CEC71D7037158B2940BDDADC /* DiamondSutraAppTests-Info.plist */,
+				AB1CD4BDA251499CEE6343C5 /* DiamondSutraAppUITests-Info.plist */,
 			);
 			path = InfoPlists;
 			sourceTree = "<group>";
@@ -105,6 +178,14 @@
 				899433F1B07845AD998FF093 /* Products */,
 				2092BBEDF40A80C7AF1DD8C2 /* Project */,
 			);
+			sourceTree = "<group>";
+		};
+		EA3511FB58FC93F0298D5E90 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E6C22C3354091C5B75900462 /* ReaderSettingsTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		FBA8319C85D6BD2D266967ED /* Sources */ = {
@@ -119,6 +200,48 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CAE9AF8E30C3EC79F9A3F576 /* DiamondSutraAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E11EEAD7163440A84214B50 /* Build configuration list for PBXNativeTarget "DiamondSutraAppUITests" */;
+			buildPhases = (
+				0B289C0E59407C572B579E78 /* Sources */,
+				60A973AAACCD3FC15810B780 /* Resources */,
+				456698D6C6607C6FF8EA887E /* Frameworks */,
+				F22964F0AD71B61480E1790A /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8BE8A47F5642D8D7BC40A01B /* PBXTargetDependency */,
+			);
+			name = DiamondSutraAppUITests;
+			packageProductDependencies = (
+			);
+			productName = DiamondSutraAppUITests;
+			productReference = 5A4EC09F5C1C2B16298B1426 /* DiamondSutraAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		CC5F25D2F2E49A84EB1780AD /* DiamondSutraAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 472E9019762781D1B51E693B /* Build configuration list for PBXNativeTarget "DiamondSutraAppTests" */;
+			buildPhases = (
+				F215557C86182DBF08B908FE /* Sources */,
+				53460E258BF97AA5150A60B6 /* Resources */,
+				35BB863E5282FE57E08216A6 /* Frameworks */,
+				9F0C5E5045B294B5408ABA43 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				73327087A71B1FB705FA5E78 /* PBXTargetDependency */,
+			);
+			name = DiamondSutraAppTests;
+			packageProductDependencies = (
+			);
+			productName = DiamondSutraAppTests;
+			productReference = EBC736ECA6472983FCAD6500 /* DiamondSutraAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D9CEE3A2FACC6B946DEC8AAE /* DiamondSutraApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 180DA4FFF3B8A339C4D2664E /* Build configuration list for PBXNativeTarget "DiamondSutraApp" */;
@@ -148,6 +271,14 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = kuotinyen;
+				TargetAttributes = {
+					CAE9AF8E30C3EC79F9A3F576 = {
+						TestTargetID = D9CEE3A2FACC6B946DEC8AAE;
+					};
+					CC5F25D2F2E49A84EB1780AD = {
+						TestTargetID = D9CEE3A2FACC6B946DEC8AAE;
+					};
+				};
 			};
 			buildConfigurationList = CE7C6023A40CFFA8C2AFCA04 /* Build configuration list for PBXProject "DiamondSutraApp" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -166,6 +297,8 @@
 			projectRoot = "";
 			targets = (
 				D9CEE3A2FACC6B946DEC8AAE /* DiamondSutraApp */,
+				CC5F25D2F2E49A84EB1780AD /* DiamondSutraAppTests */,
+				CAE9AF8E30C3EC79F9A3F576 /* DiamondSutraAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -179,9 +312,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		53460E258BF97AA5150A60B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60A973AAACCD3FC15810B780 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0B289C0E59407C572B579E78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				780E9A01B7CAE60DCF09B022 /* ReaderPinchAndScrollUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE6FF2E10C1641CB0EA98783 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -192,9 +347,63 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F215557C86182DBF08B908FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D5333ACBAC7A9B5DBF77478 /* ReaderSettingsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		73327087A71B1FB705FA5E78 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DiamondSutraApp;
+			target = D9CEE3A2FACC6B946DEC8AAE /* DiamondSutraApp */;
+			targetProxy = 69B04DE1B1B6623920101DEF /* PBXContainerItemProxy */;
+		};
+		8BE8A47F5642D8D7BC40A01B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DiamondSutraApp;
+			target = D9CEE3A2FACC6B946DEC8AAE /* DiamondSutraApp */;
+			targetProxy = 01169BB0932BE70DA9BDDED5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		07BD9CDBD92372B4B37CFDAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraAppTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kuotinyen.DiamondSutraAppTests;
+				PRODUCT_NAME = DiamondSutraAppTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DiamondSutraApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DiamondSutraApp";
+				TEST_TARGET_NAME = DiamondSutraApp;
+			};
+			name = Debug;
+		};
 		6B021B0F8226734CB256C6B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -254,6 +463,33 @@
 			};
 			name = Debug;
 		};
+		8612A1B6AB4DE508B8C6AB05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraAppTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kuotinyen.DiamondSutraAppTests;
+				PRODUCT_NAME = DiamondSutraAppTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DiamondSutraApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DiamondSutraApp";
+				TEST_TARGET_NAME = DiamondSutraApp;
+			};
+			name = Release;
+		};
 		B3DB0CCB9FF732033DF22FD4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -280,6 +516,35 @@
 			};
 			name = Release;
 		};
+		BD1127D96EF81B4EABCCD471 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraAppUITests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kuotinyen.DiamondSutraAppUITests;
+				PRODUCT_NAME = DiamondSutraAppUITests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DiamondSutraApp;
+			};
+			name = Debug;
+		};
 		E253A4E3347F71D1CD4BEA67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -299,7 +564,10 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -360,6 +628,31 @@
 			};
 			name = Release;
 		};
+		F8F7697FBDEBCA48839320CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraAppUITests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kuotinyen.DiamondSutraAppUITests;
+				PRODUCT_NAME = DiamondSutraAppUITests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DiamondSutraApp;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -368,6 +661,24 @@
 			buildConfigurations = (
 				E253A4E3347F71D1CD4BEA67 /* Debug */,
 				B3DB0CCB9FF732033DF22FD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		472E9019762781D1B51E693B /* Build configuration list for PBXNativeTarget "DiamondSutraAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07BD9CDBD92372B4B37CFDAD /* Debug */,
+				8612A1B6AB4DE508B8C6AB05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E11EEAD7163440A84214B50 /* Build configuration list for PBXNativeTarget "DiamondSutraAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD1127D96EF81B4EABCCD471 /* Debug */,
+				F8F7697FBDEBCA48839320CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
