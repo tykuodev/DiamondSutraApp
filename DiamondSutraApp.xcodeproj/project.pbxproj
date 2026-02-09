@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07ACE7C7E20FE1F20A2803DA /* TuistAssets+DiamondSutraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86C7AEE7464DAF829A50C0 /* TuistAssets+DiamondSutraApp.swift */; };
 		0EB96D009257CC7DB73B131D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0119C270E17FD7489D0BEC /* ContentView.swift */; };
 		2E0A754EF7A3526DD75C0A1F /* TuistBundle+DiamondSutraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4129233E604697978C3D312 /* TuistBundle+DiamondSutraApp.swift */; };
 		3D5333ACBAC7A9B5DBF77478 /* ReaderSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C22C3354091C5B75900462 /* ReaderSettingsTests.swift */; };
+		6EAA1B36539CB2F8A11361DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52BF150ACF418FE2A7C1E3F5 /* Assets.xcassets */; };
 		7310920667DECCBB4FB5DB5C /* DiamondSutraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3874907E69B821C96F7F2F /* DiamondSutraApp.swift */; };
 		73334A188C2C93D2D2EC5782 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 0801689BEB0084CFC7343A0C /* ZIPFoundation */; };
 		780E9A01B7CAE60DCF09B022 /* ReaderPinchAndScrollUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A412D17E36B4A0CBA7C42681 /* ReaderPinchAndScrollUITests.swift */; };
@@ -68,11 +70,13 @@
 
 /* Begin PBXFileReference section */
 		062B912D21FD71AA1DD3B4C2 /* DiamondSutraApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DiamondSutraApp-Info.plist"; sourceTree = "<group>"; };
-		134AEFA56E8556A2872E6F35 /* 金剛經.epub */ = {isa = PBXFileReference; path = "金剛經.epub"; sourceTree = "<group>"; };
+		134AEFA56E8556A2872E6F35 /* 金剛經.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "金剛經.epub"; sourceTree = "<group>"; };
+		52BF150ACF418FE2A7C1E3F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A4EC09F5C1C2B16298B1426 /* DiamondSutraAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiamondSutraAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3874907E69B821C96F7F2F /* DiamondSutraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondSutraApp.swift; sourceTree = "<group>"; };
 		A412D17E36B4A0CBA7C42681 /* ReaderPinchAndScrollUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderPinchAndScrollUITests.swift; sourceTree = "<group>"; };
 		AB1CD4BDA251499CEE6343C5 /* DiamondSutraAppUITests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DiamondSutraAppUITests-Info.plist"; sourceTree = "<group>"; };
+		AD86C7AEE7464DAF829A50C0 /* TuistAssets+DiamondSutraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+DiamondSutraApp.swift"; sourceTree = "<group>"; };
 		AE0119C270E17FD7489D0BEC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CEC71D7037158B2940BDDADC /* DiamondSutraAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DiamondSutraAppTests-Info.plist"; sourceTree = "<group>"; };
 		DCD0683CAD419ED11681BDB6 /* DiamondSutraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiamondSutraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				134AEFA56E8556A2872E6F35 /* 金剛經.epub */,
+				52BF150ACF418FE2A7C1E3F5 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 		75A2982E90ED0587D293B4A1 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				AD86C7AEE7464DAF829A50C0 /* TuistAssets+DiamondSutraApp.swift */,
 				F4129233E604697978C3D312 /* TuistBundle+DiamondSutraApp.swift */,
 			);
 			path = Sources;
@@ -308,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EAA1B36539CB2F8A11361DC /* Assets.xcassets in Resources */,
 				9C505B98A510F9FE1725CDF3 /* 金剛經.epub in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,6 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07ACE7C7E20FE1F20A2803DA /* TuistAssets+DiamondSutraApp.swift in Sources */,
 				2E0A754EF7A3526DD75C0A1F /* TuistBundle+DiamondSutraApp.swift in Sources */,
 				0EB96D009257CC7DB73B131D /* ContentView.swift in Sources */,
 				7310920667DECCBB4FB5DB5C /* DiamondSutraApp.swift in Sources */,
@@ -378,6 +386,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 49X9D2W8KH;
 				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraAppTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -391,10 +400,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -468,6 +474,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 49X9D2W8KH;
 				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraAppTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -496,6 +503,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 49X9D2W8KH;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -520,6 +528,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 49X9D2W8KH;
 				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraAppUITests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -533,10 +542,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -551,6 +557,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 49X9D2W8KH;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -564,10 +571,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -632,6 +636,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 49X9D2W8KH;
 				INFOPLIST_FILE = "Derived/InfoPlists/DiamondSutraAppUITests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
