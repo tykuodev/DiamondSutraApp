@@ -15,6 +15,8 @@ let project = Project(
             deploymentTargets: .iOS("17.0"),
             infoPlist: .extendingDefault(with: [
                 "UILaunchScreen": .dictionary([:]),
+                "CFBundleDisplayName": .string("金剛經"),
+                "CFBundleName": .string("金剛經"),
             ]),
             sources: ["Sources/**"],
             resources: ["Resources/**"],
