@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,7 +29,7 @@
 
 /* Begin PBXFileReference section */
 		062B912D21FD71AA1DD3B4C2 /* DiamondSutraApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DiamondSutraApp-Info.plist"; sourceTree = "<group>"; };
-		134AEFA56E8556A2872E6F35 /* 金剛經.epub */ = {isa = PBXFileReference; path = "金剛經.epub"; sourceTree = "<group>"; };
+		134AEFA56E8556A2872E6F35 /* 金剛經.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "金剛經.epub"; sourceTree = "<group>"; };
 		5B3874907E69B821C96F7F2F /* DiamondSutraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondSutraApp.swift; sourceTree = "<group>"; };
 		AE0119C270E17FD7489D0BEC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DCD0683CAD419ED11681BDB6 /* DiamondSutraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiamondSutraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,8 +148,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = kuotinyen;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = CE7C6023A40CFFA8C2AFCA04 /* Build configuration list for PBXProject "DiamondSutraApp" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -301,10 +299,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

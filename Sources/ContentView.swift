@@ -31,7 +31,8 @@ struct ContentView: View {
 
                     Text(progressText)
                         .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        // Avoid dynamic "secondary" turning light in Dark Mode.
+                        .foregroundStyle(.black.opacity(0.6))
                         .padding(.vertical, 8)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -143,6 +144,8 @@ struct PageCurlReaderView: UIViewControllerRepresentable {
             transitionStyle: .pageCurl,
             navigationOrientation: .horizontal
         )
+        // The reader UI is designed for a light paper-like background.
+        pageVC.overrideUserInterfaceStyle = .light
         pageVC.view.backgroundColor = UIColor(
             red: 0.99,
             green: 0.96,
@@ -247,6 +250,8 @@ final class PageHostingController: UIHostingController<SutraPageContentView> {
     init(page: SutraPage) {
         self.pageIndex = page.id
         super.init(rootView: SutraPageContentView(page: page))
+        // Ensure SwiftUI text doesn't flip to white when the system is in Dark Mode.
+        overrideUserInterfaceStyle = .light
         view.backgroundColor = UIColor(
             red: 0.99,
             green: 0.96,
@@ -275,6 +280,8 @@ struct SutraPageContentView: View {
                     .lineSpacing(8)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            // Force black text for the paper-like background even in Dark Mode.
+            .foregroundStyle(.black)
             .padding(24)
         }
         .background(readerBackground)
