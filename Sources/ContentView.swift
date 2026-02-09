@@ -1,10 +1,20 @@
 import SwiftUI
+import UIKit
 import ZIPFoundation
+
+private let readerTopColor = Color(red: 0.99, green: 0.96, blue: 0.90)
+private let readerBottomColor = Color(red: 0.97, green: 0.93, blue: 0.84)
+private let readerBackground = LinearGradient(
+    colors: [readerTopColor, readerBottomColor],
+    startPoint: .topLeading,
+    endPoint: .bottomTrailing
+)
 
 struct ContentView: View {
     @State private var chapters: [SutraChapter] = []
+    @State private var pages: [SutraPage] = []
     @State private var loadError: String?
-    @State private var currentChapterID: Int?
+    @State private var currentPageIndex: Int = 0
 
     var body: some View {
         Group {
@@ -15,30 +25,19 @@ struct ContentView: View {
             } else if chapters.isEmpty {
                 ProgressView()
             } else {
-                ScrollView(.horizontal) {
-                    LazyHStack(spacing: 0) {
-                        ForEach(chapters) { chapter in
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text(chapter.title)
-                                    .font(.headline)
-                                    .bold()
+                VStack(spacing: 0) {
+                    PageCurlReaderView(pages: pages, currentPageIndex: $currentPageIndex)
+                        .background(readerBackground)
 
-                                ScrollView {
-                                    Text(chapter.body)
-                                        .font(.body)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                }
-                            }
-                            .padding()
-                            .frame(maxHeight: .infinity, alignment: .top)
-                            .containerRelativeFrame(.horizontal)
-                            .id(chapter.id)
-                        }
-                    }
-                    .scrollTargetLayout()
+                    Text(progressText)
+                        .font(.footnote)
+                        // Avoid dynamic "secondary" turning light in Dark Mode.
+                        .foregroundStyle(.black.opacity(0.6))
+                        .padding(.vertical, 8)
                 }
-                .scrollTargetBehavior(.paging)
-                .scrollPosition(id: $currentChapterID)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(readerBackground)
+                .ignoresSafeArea()
             }
         }
         .task {
@@ -46,17 +45,77 @@ struct ContentView: View {
         }
     }
 
+    private var progressText: String {
+        guard !pages.isEmpty else { return "" }
+        return "第 \(currentPageIndex + 1) / \(pages.count) 頁"
+    }
+
     @MainActor
     private func loadChaptersFromEPUB() async {
         do {
             chapters = try EpubReader.extractChapters(from: "金剛經", fileExtension: "epub")
-            currentChapterID = chapters.first?.id
+            pages = paginate(chapters: chapters)
+            currentPageIndex = 0
             loadError = nil
         } catch {
             chapters = []
-            currentChapterID = nil
+            pages = []
+            currentPageIndex = 0
             loadError = "EPUB 解析失敗：\(error.localizedDescription)"
         }
+    }
+
+    private func paginate(chapters: [SutraChapter]) -> [SutraPage] {
+        let maxCharactersPerPage = 700
+        var builtPages: [SutraPage] = []
+        var pageIndex = 0
+
+        for chapter in chapters {
+            let paragraphs = chapter.body
+                .components(separatedBy: "\n\n")
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { !$0.isEmpty }
+
+            var currentChunk = ""
+            for paragraph in paragraphs {
+                let separator = currentChunk.isEmpty ? "" : "\n\n"
+                let candidate = currentChunk + separator + paragraph
+                if candidate.count <= maxCharactersPerPage {
+                    currentChunk = candidate
+                } else {
+                    if !currentChunk.isEmpty {
+                        builtPages.append(
+                            SutraPage(
+                                id: pageIndex,
+                                chapterTitle: chapter.title,
+                                body: currentChunk
+                            )
+                        )
+                        pageIndex += 1
+                    }
+                    currentChunk = paragraph
+                }
+            }
+
+            if !currentChunk.isEmpty {
+                builtPages.append(
+                    SutraPage(
+                        id: pageIndex,
+                        chapterTitle: chapter.title,
+                        body: currentChunk
+                    )
+                )
+                pageIndex += 1
+            }
+        }
+
+        if builtPages.isEmpty {
+            builtPages = chapters.enumerated().map { index, chapter in
+                SutraPage(id: index, chapterTitle: chapter.title, body: chapter.body)
+            }
+        }
+
+        return builtPages
     }
 }
 
@@ -64,6 +123,169 @@ struct SutraChapter: Identifiable {
     let id: Int
     let title: String
     let body: String
+}
+
+struct SutraPage: Identifiable, Equatable {
+    let id: Int
+    let chapterTitle: String
+    let body: String
+}
+
+struct PageCurlReaderView: UIViewControllerRepresentable {
+    let pages: [SutraPage]
+    @Binding var currentPageIndex: Int
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    func makeUIViewController(context: Context) -> UIPageViewController {
+        let pageVC = UIPageViewController(
+            transitionStyle: .pageCurl,
+            navigationOrientation: .horizontal
+        )
+        // The reader UI is designed for a light paper-like background.
+        pageVC.overrideUserInterfaceStyle = .light
+        pageVC.view.backgroundColor = UIColor(
+            red: 0.99,
+            green: 0.96,
+            blue: 0.90,
+            alpha: 1
+        )
+        pageVC.dataSource = context.coordinator
+        pageVC.delegate = context.coordinator
+        context.coordinator.reloadControllers(with: pages)
+
+        if let first = context.coordinator.controller(at: currentPageIndex) {
+            pageVC.setViewControllers([first], direction: .forward, animated: false)
+        }
+        return pageVC
+    }
+
+    func updateUIViewController(_ uiViewController: UIPageViewController, context: Context) {
+        context.coordinator.parent = self
+        context.coordinator.reloadControllers(with: pages)
+
+        guard let visible = uiViewController.viewControllers?.first as? PageHostingController else {
+            if let first = context.coordinator.controller(at: currentPageIndex) {
+                uiViewController.setViewControllers([first], direction: .forward, animated: false)
+            }
+            return
+        }
+
+        guard visible.pageIndex != currentPageIndex else { return }
+        let direction: UIPageViewController.NavigationDirection = currentPageIndex > visible.pageIndex ? .forward : .reverse
+        if let target = context.coordinator.controller(at: currentPageIndex) {
+            uiViewController.setViewControllers([target], direction: direction, animated: true)
+        }
+    }
+
+    final class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+        var parent: PageCurlReaderView
+        private var controllers: [PageHostingController] = []
+        private var snapshotKey: String = ""
+
+        init(_ parent: PageCurlReaderView) {
+            self.parent = parent
+        }
+
+        func reloadControllers(with pages: [SutraPage]) {
+            let newKey = pages.map { "\($0.id)|\($0.chapterTitle)|\($0.body.count)" }.joined(separator: "#")
+            guard newKey != snapshotKey else { return }
+            snapshotKey = newKey
+            controllers = pages.map { PageHostingController(page: $0) }
+        }
+
+        func controller(at index: Int) -> PageHostingController? {
+            guard controllers.indices.contains(index) else { return nil }
+            return controllers[index]
+        }
+
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
+            viewControllerBefore viewController: UIViewController
+        ) -> UIViewController? {
+            guard
+                let vc = viewController as? PageHostingController,
+                vc.pageIndex > 0
+            else {
+                return nil
+            }
+            return controllers[vc.pageIndex - 1]
+        }
+
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
+            viewControllerAfter viewController: UIViewController
+        ) -> UIViewController? {
+            guard
+                let vc = viewController as? PageHostingController,
+                vc.pageIndex + 1 < controllers.count
+            else {
+                return nil
+            }
+            return controllers[vc.pageIndex + 1]
+        }
+
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
+            didFinishAnimating finished: Bool,
+            previousViewControllers: [UIViewController],
+            transitionCompleted completed: Bool
+        ) {
+            guard
+                completed,
+                let current = pageViewController.viewControllers?.first as? PageHostingController
+            else {
+                return
+            }
+            parent.currentPageIndex = current.pageIndex
+        }
+    }
+}
+
+final class PageHostingController: UIHostingController<SutraPageContentView> {
+    let pageIndex: Int
+
+    init(page: SutraPage) {
+        self.pageIndex = page.id
+        super.init(rootView: SutraPageContentView(page: page))
+        // Ensure SwiftUI text doesn't flip to white when the system is in Dark Mode.
+        overrideUserInterfaceStyle = .light
+        view.backgroundColor = UIColor(
+            red: 0.99,
+            green: 0.96,
+            blue: 0.90,
+            alpha: 1
+        )
+    }
+
+    @MainActor @objc required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+struct SutraPageContentView: View {
+    let page: SutraPage
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 14) {
+                Text(page.chapterTitle)
+                    .font(.headline)
+                    .bold()
+
+                Text(page.body)
+                    .font(.body)
+                    .lineSpacing(8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            // Force black text for the paper-like background even in Dark Mode.
+            .foregroundStyle(.black)
+            .padding(24)
+        }
+        .background(readerBackground)
+    }
 }
 
 enum EpubReader {
