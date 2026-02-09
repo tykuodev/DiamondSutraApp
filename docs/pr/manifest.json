@@ -1,0 +1,32 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "C6C39513-B3AA-4ADC-A15A-06977FD00B7B",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "4DCCE152-3189-4CAB-A4AC-BB26C5C39C91.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "after-scroll-reset_0_3BFE60E1-0444-4A9E-A8BF-8BCC6FB5E603.png",
+        "timestamp" : 1770628219.475
+      }
+    ],
+    "testIdentifier" : "ReaderPinchAndScrollUITests/testLeavingPageResetsScrollToTop()",
+    "testIdentifierURL" : "test://com.apple.xcode/DiamondSutraApp/DiamondSutraAppUITests/ReaderPinchAndScrollUITests/testLeavingPageResetsScrollToTop"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "C6C39513-B3AA-4ADC-A15A-06977FD00B7B",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "2A553370-D968-48BC-A7F2-591EEB668DD6.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "after-pinch_0_E86F5A9D-A7D6-4BE2-B925-7F00C7A4EEE6.png",
+        "timestamp" : 1770628232.242
+      }
+    ],
+    "testIdentifier" : "ReaderPinchAndScrollUITests/testPinchUpdatesScaleLabel()",
+    "testIdentifierURL" : "test://com.apple.xcode/DiamondSutraApp/DiamondSutraAppUITests/ReaderPinchAndScrollUITests/testPinchUpdatesScaleLabel"
+  }
+]

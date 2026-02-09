@@ -10,23 +10,40 @@ private let readerBackground = LinearGradient(
     endPoint: .bottomTrailing
 )
 
+final class ReaderSettings: ObservableObject {
+    static let minTextScale: CGFloat = 0.8
+    static let maxTextScale: CGFloat = 1.8
+
+    @Published var textScale: CGFloat = 1.0
+
+    func clampedTextScale(_ value: CGFloat) -> CGFloat {
+        min(max(value, Self.minTextScale), Self.maxTextScale)
+    }
+}
+
 struct ContentView: View {
     @State private var chapters: [SutraChapter] = []
     @State private var pages: [SutraPage] = []
     @State private var loadError: String?
     @State private var currentPageIndex: Int = 0
+    @StateObject private var readerSettings = ReaderSettings()
 
     var body: some View {
         Group {
             if let loadError {
                 Text(loadError)
                     .foregroundStyle(.red)
+                
                     .padding()
             } else if chapters.isEmpty {
                 ProgressView()
             } else {
                 VStack(spacing: 0) {
-                    PageCurlReaderView(pages: pages, currentPageIndex: $currentPageIndex)
+                    PageCurlReaderView(
+                        pages: pages,
+                        currentPageIndex: $currentPageIndex,
+                        settings: readerSettings
+                    )
                         .background(readerBackground)
 
                     Text(progressText)
@@ -134,6 +151,7 @@ struct SutraPage: Identifiable, Equatable {
 struct PageCurlReaderView: UIViewControllerRepresentable {
     let pages: [SutraPage]
     @Binding var currentPageIndex: Int
+    let settings: ReaderSettings
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -144,6 +162,7 @@ struct PageCurlReaderView: UIViewControllerRepresentable {
             transitionStyle: .pageCurl,
             navigationOrientation: .horizontal
         )
+        pageVC.view.accessibilityIdentifier = "reader.pageView"
         // The reader UI is designed for a light paper-like background.
         pageVC.overrideUserInterfaceStyle = .light
         pageVC.view.backgroundColor = UIColor(
@@ -193,7 +212,7 @@ struct PageCurlReaderView: UIViewControllerRepresentable {
             let newKey = pages.map { "\($0.id)|\($0.chapterTitle)|\($0.body.count)" }.joined(separator: "#")
             guard newKey != snapshotKey else { return }
             snapshotKey = newKey
-            controllers = pages.map { PageHostingController(page: $0) }
+            controllers = pages.map { PageHostingController(page: $0, settings: parent.settings) }
         }
 
         func controller(at index: Int) -> PageHostingController? {
@@ -247,9 +266,9 @@ struct PageCurlReaderView: UIViewControllerRepresentable {
 final class PageHostingController: UIHostingController<SutraPageContentView> {
     let pageIndex: Int
 
-    init(page: SutraPage) {
+    init(page: SutraPage, settings: ReaderSettings) {
         self.pageIndex = page.id
-        super.init(rootView: SutraPageContentView(page: page))
+        super.init(rootView: SutraPageContentView(page: page, settings: settings))
         // Ensure SwiftUI text doesn't flip to white when the system is in Dark Mode.
         overrideUserInterfaceStyle = .light
         view.backgroundColor = UIColor(
@@ -260,31 +279,86 @@ final class PageHostingController: UIHostingController<SutraPageContentView> {
         )
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        // When a page is curled away, reset its scroll position so it starts from the top next time.
+        if let scrollView = view.firstDescendant(of: UIScrollView.self) {
+            let topOffset = CGPoint(x: 0, y: -scrollView.adjustedContentInset.top)
+            scrollView.setContentOffset(topOffset, animated: false)
+        }
+    }
+
     @MainActor @objc required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
+private extension UIView {
+    func firstDescendant<T: UIView>(of type: T.Type) -> T? {
+        if let match = self as? T { return match }
+        for subview in subviews {
+            if let found = subview.firstDescendant(of: type) { return found }
+        }
+        return nil
+    }
+}
+
 struct SutraPageContentView: View {
     let page: SutraPage
+    @ObservedObject var settings: ReaderSettings
+    @GestureState private var magnification: CGFloat = 1.0
+
+    private let magnificationDamping: CGFloat = 0.65
+
+    private var magnificationGesture: some Gesture {
+        MagnificationGesture()
+            .updating($magnification) { value, state, _ in
+                state = value
+            }
+            .onEnded { value in
+                let damped = pow(value, magnificationDamping)
+                settings.textScale = settings.clampedTextScale(settings.textScale * damped)
+            }
+    }
+
+    private var effectiveTextScale: CGFloat {
+        // Use damping so pinch isn't too sensitive.
+        let damped = pow(magnification, magnificationDamping)
+        return settings.clampedTextScale(settings.textScale * damped)
+    }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 14) {
-                Text(page.chapterTitle)
-                    .font(.headline)
-                    .bold()
+        ZStack(alignment: .topLeading) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    Text(page.chapterTitle)
+                        .accessibilityIdentifier("reader.chapterTitle")
+                        .font(.system(size: 22 * effectiveTextScale, weight: .semibold))
+                        .bold()
 
-                Text(page.body)
-                    .font(.body)
-                    .lineSpacing(8)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(page.body)
+                        .accessibilityIdentifier("reader.bodyText")
+                        .font(.system(size: 18 * effectiveTextScale))
+                        .lineSpacing(8)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                // Force black text for the paper-like background even in Dark Mode.
+                .foregroundStyle(.black)
+                .padding(24)
             }
-            // Force black text for the paper-like background even in Dark Mode.
-            .foregroundStyle(.black)
-            .padding(24)
+            .accessibilityIdentifier("reader.pageScroll")
+
+            // Expose scale for UI tests; keep it effectively invisible.
+            Text(String(format: "scale=%.3f", settings.textScale))
+                .accessibilityIdentifier("reader.scale")
+                .font(.caption2)
+                .opacity(0.01)
+                .padding(2)
         }
         .background(readerBackground)
+        // Pinch should be easy to trigger even inside ScrollView.
+        .highPriorityGesture(magnificationGesture)
     }
 }
 
