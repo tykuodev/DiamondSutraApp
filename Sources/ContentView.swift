@@ -276,8 +276,28 @@ final class PageHostingController: UIHostingController<SutraPageContentView> {
         )
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        // When a page is curled away, reset its scroll position so it starts from the top next time.
+        if let scrollView = view.firstDescendant(of: UIScrollView.self) {
+            let topOffset = CGPoint(x: 0, y: -scrollView.adjustedContentInset.top)
+            scrollView.setContentOffset(topOffset, animated: false)
+        }
+    }
+
     @MainActor @objc required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private extension UIView {
+    func firstDescendant<T: UIView>(of type: T.Type) -> T? {
+        if let match = self as? T { return match }
+        for subview in subviews {
+            if let found = subview.firstDescendant(of: type) { return found }
+        }
+        return nil
     }
 }
 
