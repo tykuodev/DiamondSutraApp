@@ -33,6 +33,7 @@ struct ContentView: View {
             if let loadError {
                 Text(loadError)
                     .foregroundStyle(.red)
+                
                     .padding()
             } else if chapters.isEmpty {
                 ProgressView()
@@ -309,6 +310,17 @@ struct SutraPageContentView: View {
 
     private let magnificationDamping: CGFloat = 0.65
 
+    private var magnificationGesture: some Gesture {
+        MagnificationGesture()
+            .updating($magnification) { value, state, _ in
+                state = value
+            }
+            .onEnded { value in
+                let damped = pow(value, magnificationDamping)
+                settings.textScale = settings.clampedTextScale(settings.textScale * damped)
+            }
+    }
+
     private var effectiveTextScale: CGFloat {
         // Use damping so pinch isn't too sensitive.
         let damped = pow(magnification, magnificationDamping)
@@ -332,16 +344,8 @@ struct SutraPageContentView: View {
             .padding(24)
         }
         .background(readerBackground)
-        .gesture(
-            MagnificationGesture()
-                .updating($magnification) { value, state, _ in
-                    state = value
-                }
-                .onEnded { value in
-                    let damped = pow(value, magnificationDamping)
-                    settings.textScale = settings.clampedTextScale(settings.textScale * damped)
-                }
-        )
+        // Pinch should be easy to trigger even inside ScrollView.
+        .highPriorityGesture(magnificationGesture)
     }
 }
 
