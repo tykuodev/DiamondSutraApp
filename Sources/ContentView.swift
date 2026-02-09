@@ -10,11 +10,22 @@ private let readerBackground = LinearGradient(
     endPoint: .bottomTrailing
 )
 
+final class ReaderSettings: ObservableObject {
+    @Published var textScale: CGFloat = 1.0
+
+    func applyMagnificationDelta(_ delta: CGFloat) {
+        guard delta.isFinite, delta > 0 else { return }
+        let updated = textScale * delta
+        textScale = min(max(updated, 0.8), 1.8)
+    }
+}
+
 struct ContentView: View {
     @State private var chapters: [SutraChapter] = []
     @State private var pages: [SutraPage] = []
     @State private var loadError: String?
     @State private var currentPageIndex: Int = 0
+    @StateObject private var readerSettings = ReaderSettings()
 
     var body: some View {
         Group {
@@ -26,7 +37,11 @@ struct ContentView: View {
                 ProgressView()
             } else {
                 VStack(spacing: 0) {
-                    PageCurlReaderView(pages: pages, currentPageIndex: $currentPageIndex)
+                    PageCurlReaderView(
+                        pages: pages,
+                        currentPageIndex: $currentPageIndex,
+                        settings: readerSettings
+                    )
                         .background(readerBackground)
 
                     Text(progressText)
@@ -134,6 +149,7 @@ struct SutraPage: Identifiable, Equatable {
 struct PageCurlReaderView: UIViewControllerRepresentable {
     let pages: [SutraPage]
     @Binding var currentPageIndex: Int
+    let settings: ReaderSettings
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -193,7 +209,7 @@ struct PageCurlReaderView: UIViewControllerRepresentable {
             let newKey = pages.map { "\($0.id)|\($0.chapterTitle)|\($0.body.count)" }.joined(separator: "#")
             guard newKey != snapshotKey else { return }
             snapshotKey = newKey
-            controllers = pages.map { PageHostingController(page: $0) }
+            controllers = pages.map { PageHostingController(page: $0, settings: parent.settings) }
         }
 
         func controller(at index: Int) -> PageHostingController? {
@@ -247,9 +263,9 @@ struct PageCurlReaderView: UIViewControllerRepresentable {
 final class PageHostingController: UIHostingController<SutraPageContentView> {
     let pageIndex: Int
 
-    init(page: SutraPage) {
+    init(page: SutraPage, settings: ReaderSettings) {
         self.pageIndex = page.id
-        super.init(rootView: SutraPageContentView(page: page))
+        super.init(rootView: SutraPageContentView(page: page, settings: settings))
         // Ensure SwiftUI text doesn't flip to white when the system is in Dark Mode.
         overrideUserInterfaceStyle = .light
         view.backgroundColor = UIColor(
@@ -267,16 +283,18 @@ final class PageHostingController: UIHostingController<SutraPageContentView> {
 
 struct SutraPageContentView: View {
     let page: SutraPage
+    @ObservedObject var settings: ReaderSettings
+    @State private var lastMagnification: CGFloat = 1.0
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
                 Text(page.chapterTitle)
-                    .font(.headline)
+                    .font(.system(size: 22 * settings.textScale, weight: .semibold))
                     .bold()
 
                 Text(page.body)
-                    .font(.body)
+                    .font(.system(size: 18 * settings.textScale))
                     .lineSpacing(8)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -285,6 +303,17 @@ struct SutraPageContentView: View {
             .padding(24)
         }
         .background(readerBackground)
+        .gesture(
+            MagnificationGesture()
+                .onChanged { value in
+                    let delta = value / lastMagnification
+                    lastMagnification = value
+                    settings.applyMagnificationDelta(delta)
+                }
+                .onEnded { _ in
+                    lastMagnification = 1.0
+                }
+        )
     }
 }
 
