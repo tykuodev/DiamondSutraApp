@@ -15,12 +15,20 @@ let project = Project(
             deploymentTargets: .iOS("17.0"),
             infoPlist: .extendingDefault(with: [
                 "UILaunchScreen": .dictionary([:]),
+                "CFBundleDisplayName": .string("金剛經"),
+                "CFBundleName": .string("金剛經"),
+                "CFBundleIconName": .string("AppIcon"),
             ]),
             sources: ["Sources/**"],
             resources: ["Resources/**"],
             dependencies: [
                 .package(product: "ZIPFoundation"),
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+                ]
+            )
         )
     ]
 )
